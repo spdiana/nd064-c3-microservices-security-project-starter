@@ -1,8 +1,33 @@
 Docker Threat Modeling
 Given Docker's system components and the STRIDE framework, identify five potential threats that may arise.
+1. Spoofing On Docker Client - Client traffic from the Docker client to the Docker daemon or registry could be spoofed or intercepted by a malicious party and replayed
+2. Tampering and Repudiation On Docker Client - An attacker gets control of the Docker client tampering of the Dockerfile that’s used to build the image.
+   Once the client is compromised, the attacker may use it to make changes that are not legitimate.
+3. Information Disclosure on Docker Host - The Docker host file system may be misconfigured, exposing sensitive information
+4. Spoofing on Docker Registry - An image may be spoofed with malicious images or libraries as part of the container layers, which affects image security.
+5. Repudiation on Docker Registry - Malicious images may be committed without authorization by an attacker.
+
+References:
+Udacity Microservices Security - Lesson 2
+https://cloudsecdocs.com/container_security/theory/threats/docker_threat_model/
 
 Kubernetes Threat Modeling
 Given Kubernetes' system components and the STRIDE framework, identify five potential threats that may arise.
+5 concrete attack surface areas for the Kubernetes control plane, etcd, and worker
+1. Tampering on K8s Control Plane - The configuration of etcd may be tampered with by an attacker, modifying vital system-level configurations such as pod specs.
+2. Information Disclosure on K8s Control Plane - Sensitive information may be exposed via the etcd key-value store.
+3. Denial of Service on K8s Control Plane - Excessive traffic to the API server can overwhelm the endpoint. kube-scheduler can incorrectly schedule the pod.
+4. Tampering on K8s Node Runtime - The kubelet configuration can be tampered if has less restrictive permissions. Specifically, the kubelet.conf worker configuration file can be tampered with.
+5. Information Disclosure on K8s Node Runtime - Kube-proxy can expose sensitive information if has weak restrictive permissions
+
+References:
+Udacity Microservices Security - Lesson 2
+https://cloudsecdocs.com/container_security/theory/threats/k8s_threat_model/
 
 Docker-bench Run Results and Analysis
-From the failed findings, select and document 3 findings from the Docker-bench results that you want to harden based on the 5 attack surface areas you identified in Step 1. At least 1 of the 3 hardened findings should be different from the ones mentioned in the exercise (i.e. 5.10, 5.14, and 5.22).
+From the failed findings, select and document 3 findings from the Docker-bench results that you want to harden based on
+the 5 attack surface areas you identified in Step 1. At least 1 of the 3 hardened findings should be different from
+the ones mentioned in the exercise (i.e. 5.10, 5.14, and 5.22).
+
+
+https://docs.docker.com/get-started/overview/
