@@ -1,0 +1,27 @@
+1. Incident commander name:
+   Pod on k8s consuming high CPU
+
+2. Executive Summary of what happened:
+   Miner pods CPU usage of the-service being very high. The performance and usability of the machine was impacted.
+
+3. Summary of what was affected:
+   The applications running on the machine/pos was negatively impacted, processes became unstable leading to issues beyond slow responses.
+   User experience degraded.
+
+4. Summary of the impact:
+   Machine experiences high CPU consumption, applications e processes also become unstable and low response.
+
+5. Summary of the remediation steps:
+   Checks on grafana dashboard to identify the issue. Checks on cluster using command "kubectl top" and Access to pod
+   via bash and check resources consumption using "top" command line.
+   Kubernetes doesn't support the stop/pause pod and also to delete Kubernetes will start new pod.
+   As remediation was set up the number of replicas to 0 to manage to stop all my mining pods and release CPU issue.
+   As investigation Kubernetes offers horizontal pod autoscaling based on CPU consumption and also
+   set a cpu resource limit in the Deployment configuration that's a possible definitive remediation to the issue.
+   Also review access to the Kubernetes API server from administrative terminals and the Grafana dashboards.
+   Admission controllers can also be configured to disallow unknown images to be used to create containers.
+
+6. Summary of lessons learned:
+   Grafana dashboards is powerful tool to help investigate issues and monitoring pods.
+   It's important harden docker, pods, k8s and applications to avoid incidents that could be earlier evicted and avoid
+   unknown access.

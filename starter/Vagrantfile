@@ -2,9 +2,9 @@
 ENV["TERM"]="linux"
 
 Vagrant.configure("2") do |config|
-#test for Yi!
+  #test for Yi!
   # set up root access
-  config.ssh.username = 'root'
+  config.ssh.username = 'vagrant'
   config.ssh.password = 'vagrant'
   config.ssh.insert_key = 'true'
 
@@ -14,10 +14,16 @@ Vagrant.configure("2") do |config|
   (1..NodeCount).each do |i|
     config.vm.define "node#{i}" do |node|
       # set base image for the vagrant box
-      config.vm.box = "opensuse/Leap-15.2.x86_64"
+      #config.vm.box = "opensuse/Leap-15.2.x86_64"
+      config.vm.box = "hashicorp/bionic64"
+      #config.vm.box = "opensuse/Leap-15.3.x86_64"
+      #config.vm.box_version = "15.3.9.201"
 
       # set the static IP for the vagrant box
-      node.vm.network "private_network", ip: "192.168.50.10#{i}"
+      #node.vm.network "private_network", ip: "192.168.50.10#{i}"
+      config.vm.network "forwarded_port", guest: 3000, host: 8087
+      config.vm.network "forwarded_port", guest: 9090, host: 8088
+      config.vm.network "forwarded_port", guest: 9376, host: 8089
       # configure the parameters for VirtualBox provider
       node.vm.provider "virtualbox" do |v|
         v.name = "node#{i}"
@@ -25,14 +31,14 @@ Vagrant.configure("2") do |config|
         v.cpus = 2
       end
 
-    config.vm.provision "shell", inline: <<-SHELL
+      config.vm.provision "shell", inline: <<-SHELL
       sudo zypper --non-interactive install apparmor-parser
       # install Docker
       zypper --non-interactive install docker #python3-docker-compose
       systemctl enable docker
       usermod -G docker -a $USER
       systemctl restart docker
-    SHELL
+      SHELL
     end
   end
 end
