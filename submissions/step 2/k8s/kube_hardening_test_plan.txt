@@ -1,8 +1,16 @@
 How you will test the changes?
-The change will be tested in environment non-production cluster (test cluster).
-
+Usually projects has environment integration, staging and production.
+Integration, staging are environments non-production. The change has to be tested in environment non-production cluster (test cluster).
+Also, it can bring up a test cluster using tools like kubetest (https://github.com/kubernetes/test-infra/blob/master/kubetest/README.md)
+More tools for test cluster can be checked in: https://kubernetes.io/blog/2019/03/22/kubernetes-end-to-end-testing-for-everyone/
 
 How you will ensure the changes don't negatively affect your cluster?
 
-The change should be tested in a non-production cluster. Once the change is applied, you should monitor metrics using
-your observability and monitoring techniques like Prometheus and Grafana.
+The change should be tested in a non-production cluster.
+Once the change is applied, should monitor metrics using the observability metrics (SLA, SLO, SLI) implemented
+and monitoring on techniques/tools like Prometheus, Grafana, Jaeger, Opentracing.
+
+References:
+https://www.inovex.de/de/blog/testing-kubernetes-infrastructure/
+https://kubernetes.io/blog/2019/03/22/kubernetes-end-to-end-testing-for-everyone/
+https://kubetest.readthedocs.io/en/latest/writing_tests.html
