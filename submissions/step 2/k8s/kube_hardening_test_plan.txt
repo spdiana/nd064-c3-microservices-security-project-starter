@@ -4,6 +4,18 @@ Integration, staging are environments non-production. The change has to be teste
 Also, it can bring up a test cluster using tools like kubetest (https://github.com/kubernetes/test-infra/blob/master/kubetest/README.md)
 More tools for test cluster can be checked in: https://kubernetes.io/blog/2019/03/22/kubernetes-end-to-end-testing-for-everyone/
 
+it's possible to simulate directing traffic to a est environment cluster via load balancer configuration or
+if it's running a service mesh can do so via the mesh-like Istio or Envoy. There are also microservices-minded proxies
+like Traefik that provide ways to load balance Microservices. Changes be rolled out incrementally to a percentage of traffic,
+cluster-bound incoming traffic is often split at the load balancer
+
+Change be safely rolled back editing the file cluster.yaml and should be version-controlled with Git to easily the change
+can be rolled back. As the cluster needs to be restarted, the change will take time to roll back.
+Hence need be very careful with testing the change.
+
+Also it is possible intercept services on cluster to debug some Kubernetes service locally using some debugging tool,
+one example can be checked on link https://www.getambassador.io/resources/easy-debugging-of-spring-boot-microservices/
+
 How you will ensure the changes don't negatively affect your cluster?
 
 The change should be tested in a non-production cluster.
